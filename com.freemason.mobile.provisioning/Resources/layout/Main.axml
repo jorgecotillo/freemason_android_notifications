@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fefafcff">
+    <TextView
+        android:text="Loading ..."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvLoading"
+        android:textColor="#ff2d1818" />
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/pbLoading"
+        android:indeterminate="false" />
+    <TextView xmlns:tools="http://schemas.android.com/tools"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvSuccessMsg"
+        android:text="Dispositivo registrado satisfactoriamente!"
+        android:textColor="#ff251717"
+        tools:visibility="gone" />
+    <Button xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnCerrar"
+        android:text="Presione aqui para cerrar"
+        tools:visibility="gone"
+        android:textColor="#fffcf5f5" />
+</LinearLayout>
