@@ -26,7 +26,6 @@ namespace com.freemason.mobile.provisioning
 		
 		public static void UpdateIdValues()
 		{
-			global::Gcm.Client.Resource.String.library_name = global::com.freemason.mobile.provisioning.Resource.String.library_name;
 			global::PCLCrypto.Resource.String.ApplicationName = global::com.freemason.mobile.provisioning.Resource.String.ApplicationName;
 			global::PCLCrypto.Resource.String.Hello = global::com.freemason.mobile.provisioning.Resource.String.Hello;
 		}
@@ -320,8 +319,8 @@ namespace com.freemason.mobile.provisioning
 			// aapt resource value: 0x7f050022
 			public const int Hello = 2131034146;
 			
-			// aapt resource value: 0x7f050026
-			public const int app_name = 2131034150;
+			// aapt resource value: 0x7f050025
+			public const int app_name = 2131034149;
 			
 			// aapt resource value: 0x7f050001
 			public const int auth_google_play_services_client_facebook_display_name = 2131034113;
@@ -425,11 +424,8 @@ namespace com.freemason.mobile.provisioning
 			// aapt resource value: 0x7f05001d
 			public const int common_signin_button_text_long = 2131034141;
 			
-			// aapt resource value: 0x7f050025
-			public const int hello = 2131034149;
-			
 			// aapt resource value: 0x7f050024
-			public const int library_name = 2131034148;
+			public const int hello = 2131034148;
 			
 			static String()
 			{

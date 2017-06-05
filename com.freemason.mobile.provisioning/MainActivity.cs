@@ -1,10 +1,11 @@
-﻿using System.Net.Http;
+﻿﻿using System.Net.Http;
 using Android.App;
 using Android.Content;
+using Android.Gms.Common;
 using Android.OS;
 using Android.Preferences;
+using Android.Util;
 using Android.Widget;
-using Gcm.Client;
 using IdentityModel.Client;
 using IdentityModel.OidcClient;
 
@@ -41,14 +42,9 @@ namespace com.freemason.mobile.provisioning
             ISharedPreferences prefs =
                     PreferenceManager.GetDefaultSharedPreferences(this);
 
-            var isRegistered =
-                prefs.GetBoolean("fm_registered", false);
+            // Register with the Google Cloud Service
+            RegisterWithGCM();
 
-            if (!isRegistered)
-            {
-                // Register with the Google Cloud Service
-                RegisterWithGCM();
-            }
             _progressBar.Indeterminate = true;
 
             var options = new OidcClientOptions
@@ -78,7 +74,6 @@ namespace com.freemason.mobile.provisioning
                 editor.PutString("fm_access_token", result.AccessToken);
                 //TODO: There is no refresh token, have to verify the reason.
                 editor.PutString("fm_refresh_token", result.RefreshToken);
-                editor.PutBoolean("fm_registered", true);
                 editor.Apply();
 
                 _progressBar.Indeterminate = false;
@@ -94,13 +89,34 @@ namespace com.freemason.mobile.provisioning
 		/// </summary>
 		void RegisterWithGCM()
 		{
-			// Check to ensure everything's setup right
-			GcmClient.CheckDevice(this);
-			GcmClient.CheckManifest(this);
+			if (IsPlayServicesAvailable())
+			{
+				var intent = new Intent(this, typeof(RegistrationIntentService));
+				StartService(intent);
+			}
+		}
 
-			// Register for push notifications
-			System.Diagnostics.Debug.WriteLine("Registering...");
-			GcmClient.Register(this, Constants.SenderID);
+		bool IsPlayServicesAvailable()
+		{
+			int resultCode = GoogleApiAvailability.Instance.IsGooglePlayServicesAvailable(this);
+			if (resultCode != ConnectionResult.Success)
+			{
+                if (GoogleApiAvailability.Instance.IsUserResolvableError(resultCode))
+                {
+                    Log.Info("IsPlayServicesAvailable", GoogleApiAvailability.Instance.GetErrorString(resultCode));
+                }
+				else
+				{
+                    Log.Info("IsPlayServicesAvailable", "Sorry, this device is not supported");
+					Finish();
+				}
+				return false;
+			}
+			else
+			{
+                Log.Info("IsPlayServicesAvailable", "Google Play Services is available.");
+				return true;
+			}
 		}
 
         void DisplayOrHideSuccessControl(bool display)
